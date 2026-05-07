@@ -1,0 +1,18 @@
+stages:
+  data_visualization:
+    cmd: python src/data_visualization.py
+    deps:
+      - src/data_visualization.py
+      - data/raw/datos_creditos.csv
+      - data/raw/datos_tarjetas.csv
+    outs:
+      - docs/figures/target_distribution.png
+      - docs/figures/correlation_heatmap_creditos.png
+      - docs/figures/correlation_heatmap_tarjetas.png
+      - docs/figures/estado_civil_distribution_tarjetas.png
+      - docs/figures/estado_cliente_distribution_tarjetas.png
+      - docs/figures/genero_distribution_tarjetas.png
+      - docs/figures/nivel_educativo_distribution_tarjetas.png
+      - docs/figures/nivel_tarjeta_distribution_tarjetas.png
+      - docs/figures/objetivo_credito_distribution_creditos.png
+      - docs/figures/situacion_vivienda_distribution_creditos.png
