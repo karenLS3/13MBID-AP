@@ -100,8 +100,10 @@ def train_model(
 
     # ---------------------------------------------------------------------------
     # Pipeline con el mejor modelo: LogisticRegression
+    # Según la experimentación previa, LogisticRegression fue seleccionado como
+    # modelo candidato para producción por su rendimiento general
     # ---------------------------------------------------------------------------
-    modelo = LogisticRegression(max_iter=2000)
+    modelo = LogisticRegression(max_iter=2000, solver="lbfgs")
 
     preprocessor = create_preprocessor(features_X)
 
@@ -111,7 +113,29 @@ def train_model(
         ("model", modelo),
     ])
 
-    pipeline.fit(X_train, y_train_eval)
+    # ---------------------------------------------------------------------------
+    # Optimización simple de hiperparámetros
+    # ---------------------------------------------------------------------------
+    param_grid = {
+        "model__C": [0.1, 1.0, 10.0],
+        "model__class_weight": [None, "balanced"]
+    }
+
+    grid_search = GridSearchCV(
+        estimator=pipeline,
+        param_grid=param_grid,
+        scoring="roc_auc",
+        cv=5,
+        n_jobs=-1
+    )
+
+    grid_search.fit(X_train, y_train_eval)
+
+    pipeline = grid_search.best_estimator_
+
+    print("Mejores hiperparámetros:")
+    print(grid_search.best_params_)
+    print(f"Mejor ROC AUC en validación cruzada: {grid_search.best_score_:.4f}")
 
     # ---------------------------------------------------------------------------
     # Evaluación en test
@@ -158,6 +182,20 @@ def train_model(
             "test_samples":     len(X_test),
             "balancing_method": "undersampling",
         })
+
+        # Información de selección y optimización del modelo
+        mlflow.log_params({
+            "selected_model": "LogisticRegression",
+            "selection_criterion": "best previous experimentation results",
+            "optimization_method": "GridSearchCV",
+            "cv_folds": 5,
+            "scoring": "roc_auc",
+            "best_cv_score": grid_search.best_score_,
+        })
+
+        # Mejores hiperparámetros encontrados
+        mlflow.log_params(grid_search.best_params_)
+        
         mlflow.log_metrics(metrics)
         mlflow.log_artifact(cm_path)
         mlflow.sklearn.log_model(pipeline, artifact_path="model", signature=signature)
