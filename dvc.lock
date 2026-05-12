@@ -13,8 +13,8 @@ stages:
       size: 845190
     - path: src/data_visualization.py
       hash: md5
-      md5: 46292f53c2af64cbe1c42e011fb64216
-      size: 3745
+      md5: a93704b88ce4babd467129ee715c01a2
+      size: 4736
     outs:
     - path: docs/figures/correlation_heatmap_creditos.png
       hash: md5
@@ -24,6 +24,10 @@ stages:
       hash: md5
       md5: be5105f4aed5c8594f1939d74d91be5f
       size: 52497
+    - path: docs/figures/default_by_loan_purpose.png
+      hash: md5
+      md5: 625df6fcbbc9bd386ce69f842a3e3bec
+      size: 30095
     - path: docs/figures/estado_civil_distribution_tarjetas.png
       hash: md5
       md5: b6a0ed1ba24fbb19f7b86ef056cffeed
@@ -36,6 +40,10 @@ stages:
       hash: md5
       md5: 7acfb2f90a29470c3b754baf1ae8ea75
       size: 10437
+    - path: docs/figures/loan_amount_by_default_status.png
+      hash: md5
+      md5: 165132c292421c7e1c2515a384b17164
+      size: 29341
     - path: docs/figures/nivel_educativo_distribution_tarjetas.png
       hash: md5
       md5: e4c879c4cb59ba83f6d8ea6675de0d77

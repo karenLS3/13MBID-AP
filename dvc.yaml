@@ -16,3 +16,5 @@ stages:
       - docs/figures/nivel_tarjeta_distribution_tarjetas.png
       - docs/figures/objetivo_credito_distribution_creditos.png
       - docs/figures/situacion_vivienda_distribution_creditos.png
+      - docs/figures/default_by_loan_purpose.png
+      - docs/figures/loan_amount_by_default_status.png

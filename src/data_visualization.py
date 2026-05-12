@@ -79,6 +79,42 @@ def visualize_data(datos_creditos: str="data/raw/datos_creditos.csv",
     plt.savefig(output_dir / 'correlation_heatmap_tarjetas.png')
     plt.close()
 
+    ##################################################################################s
+    # TODO: Agregar al menos dos (2) gráficos adicionales que consideren variables.
+    # OPCIÓN EXTRA (ejemplo):  agregar la generación del reporte con ydata-profiling.
+    ##################################################################################
+
+    # Distribución de mora según objetivo del crédito
+
+    plt.figure(figsize=(12, 6))
+
+    sns.countplot(
+        y="objetivo_credito",
+        hue="falta_pago",
+        data=df_creditos,
+        order=df_creditos["objetivo_credito"].value_counts().index
+    )
+
+    plt.title("Distribución de mora según objetivo del crédito")
+    plt.xlabel("Cantidad de clientes")
+    plt.ylabel("Objetivo del crédito")
+    plt.legend(title="Falta de pago")
+
+    plt.savefig(output_dir / "default_by_loan_purpose.png")
+    plt.close()
+
+    # Importe solicitado según presencia de mora
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(
+        x="falta_pago",
+        y="importe_solicitado",
+        data=df_creditos
+    )
+    plt.title("Distribución del importe solicitado según presencia de mora")
+    plt.xlabel("¿Presentó mora el cliente?")
+    plt.ylabel("Importe solicitado")
+    plt.savefig(output_dir / "loan_amount_by_default_status.png")
+    plt.close()
 
 if __name__ == "__main__":
     visualize_data()
