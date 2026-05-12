@@ -15,4 +15,4 @@ great_expectations
 fastapi 
 uvicorn 
 plotly 
-imblearn
+imbalanced-learn
