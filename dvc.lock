@@ -106,3 +106,27 @@ stages:
       hash: md5
       md5: 55dcfbae209de18fc27fe4a1b6cf76ae
       size: 38835
+  data_processing:
+    cmd: python src/data_prep.py
+    deps:
+    - path: data/raw/datos_creditos.csv
+      hash: md5
+      md5: 3b26edd22e8827f890d7cd32efe475b7
+      size: 663047
+    - path: data/raw/datos_tarjetas.csv
+      hash: md5
+      md5: 9e197c893925601cd447c81256e8cf07
+      size: 845190
+    - path: src/data_prep.py
+      hash: md5
+      md5: ce108b1cc1b8ea6464ce996429c942be
+      size: 5660
+    outs:
+    - path: data/processed/datos_integrados.csv
+      hash: md5
+      md5: 26da7b14131c3bc2079acaed91eaf734
+      size: 1855179
+    - path: data/processed/metadata_datos_integrados.txt
+      hash: md5
+      md5: d5feff65e293c1c5da06d981804e83d0
+      size: 1231
